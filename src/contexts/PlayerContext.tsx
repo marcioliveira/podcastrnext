@@ -13,6 +13,7 @@ type PlayerContextData = {
     currentEpisodeIndex: number;
     isPlaying: boolean;
     play: (episode: Episode) => void;
+    playList: (list: Episode[], index: number) => void;
     setPlayingState: (state: boolean) => void;
     togglePlay: () => void;
 };
@@ -34,6 +35,12 @@ const [isPlaying, setIsPlaying] = useState(false);
     setIsPlaying(true);
   }
 
+  function playList(list: Episode[], index: number) {
+      setEpisodeList(list);
+      setCurrentEpisodeIndex(index);
+      setIsPlaying(true);
+  }
+
   function togglePlay() {
     setIsPlaying(!isPlaying);
   }
@@ -47,7 +54,8 @@ const [isPlaying, setIsPlaying] = useState(false);
         value={{ 
             episodeList, 
             currentEpisodeIndex, 
-            play, 
+            play,
+            playList, 
             isPlaying, 
             togglePlay,     
             setPlayingState 
