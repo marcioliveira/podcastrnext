@@ -15,7 +15,11 @@ export function Player() {
         episodeList, 
         currentEpisodeIndex, 
         isPlaying, 
+        isLooping,
+        isShuffling,
         togglePlay,
+        toggleLoop,
+        toggleShuffle,
         setPlayingState,
         playNext,
         playPrevious,
@@ -82,6 +86,7 @@ export function Player() {
                    <audio 
                     src={episode.url}
                     ref={audioRef}
+                    loop={isLooping}
                     autoPlay
                     onPlay={() => setPlayingState(true)}
                     onPause={() => setPlayingState(false)}
@@ -89,10 +94,19 @@ export function Player() {
                ) }
 
                <div className={styles.buttons}>
-                   <button type="button" disabled={!episode}>
+                   <button 
+                        type="button" 
+                        disabled={!episode}
+                        onClick={toggleShuffle}
+                        className={isShuffling ? styles.isActive : ''}
+                    >
                        <img src="/shuffle.svg" alt="Embaralhar"></img>
                    </button>
-                   <button type="button" onClick={playPrevious} disabled={!episode || hasPrevious}>
+                   <button 
+                        type="button" 
+                        onClick={playPrevious} 
+                        disabled={!episode || hasPrevious}
+                    >
                        <img src="/play-previous.svg" alt="Tocar anterior"></img>
                    </button>
                    <button 
@@ -106,10 +120,19 @@ export function Player() {
                             : <img src="/play.svg" alt="Tocar"/>
                         }
                    </button>
-                   <button type="button" onClick={playNext} disabled={!episode || hasNext}>
+                   <button 
+                        type="button" 
+                        onClick={playNext} 
+                        disabled={!episode || hasNext}
+                    >
                        <img src="/play-next.svg" alt="Tocar próxima"></img>
                    </button>
-                   <button type="button" disabled={!episode}>
+                   <button 
+                        type="button" 
+                        disabled={!episode}
+                        onClick={toggleLoop}
+                        className={isLooping ? styles.isActive : ''}
+                    >
                        <img src="/repeat.svg" alt="Repetir"></img>
                    </button>
                </div>
